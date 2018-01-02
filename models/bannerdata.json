@@ -1,0 +1,41 @@
+{
+    "code": 200,
+    "msg": "OK",
+    "data": [{
+        "id": 1,
+        "name": "",
+        "tolink": "https://www.baidu.com",
+        "url": "http://192.168.117.25:8888/images/banner1.jpg",
+        "inapp": 1,
+        "runtime": 5000,
+        "addtime": 0,
+        "remark": "",
+        "activityid": "",
+        "login": 0,
+        "share": 0,
+        "title": "",
+        "summary": "",
+        "targetUrl": "",
+        "imageUrl": "",
+        "appName": "",
+        "extraData": ""
+    }, {
+        "id": 2,
+        "name": "",
+        "tolink": "http://taobao.com",
+        "url": "http://192.168.117.25:8888/images/banner2.jpg",
+        "inapp": 0,
+        "runtime": 5000,
+        "addtime": 0,
+        "remark": "",
+        "activityid": "",
+        "login": 0,
+        "share": 0,
+        "title": "",
+        "summary": "",
+        "targetUrl": "",
+        "imageUrl": "",
+        "appName": "",
+        "extraData": ""
+    }]
+}
