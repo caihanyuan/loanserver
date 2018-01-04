@@ -10,11 +10,22 @@ exports.getBannerData = function(req, res) {
                 console.log('error to read file: bannerdata.json');
                 throw err;
             } else {
+                var resultObj = JSON.parse(data);
+                var arr = resultObj.data;
+                for (var i = 0; i < arr.length; i++) {
+                    var bannerObject = arr[i];
+                    var imgUrl = bannerObject.url;
+                    bannerObject.url = 'http://' + req.get('host') + imgUrl;
+                }
+
+                var resultStr = JSON.stringify(resultObj);
+                console.log('Result obj:', resultStr);
+
                 res.writeHead(200, {
-                    'Content-Length': Buffer.byteLength(data),
+                    'Content-Length': Buffer.byteLength(resultStr),
                     'Content-Type': 'text/plain;charset=utf-8'
                 });
-                res.write(data);
+                res.write(resultStr);
                 res.end();
             }
         });

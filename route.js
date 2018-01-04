@@ -1,6 +1,8 @@
 
 exports.setRequestUrl=function(app){
     var banner = require('./models/banner');
+    var loanstatus = require('./models/loanStatus');
 
-    app.get('/banner', banner.getBannerData);
+    app.post('/banner', banner.getBannerData);
+    app.post('/loanstatus', loanstatus.getRandomStatus);
 }
