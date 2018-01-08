@@ -7,7 +7,7 @@ var logger = require('morgan');
 var os = require('os');
 
 var app = express();
-var IPv4;
+var IPv4 = '127.0.0.1';
 
 app.set('port', config.port);
 app.use(logger('dev'));
@@ -40,26 +40,17 @@ if (process.env.NODE_ENV == "development") {
 
 route.setRequestUrl(app);
 
-if (os.networkInterfaces().en0) {
-    for (var i = 0; i < os.networkInterfaces().en0.length; i++) {
-        if (os.networkInterfaces().en0[i].family == 'IPv4') {
-            IPv4 = os.networkInterfaces().en0[i].address;
-            break;
-        }
-    }
-} else if (os.networkInterfaces().lo) {
-    for (var i = 0; i < os.networkInterfaces().lo.length; i++) {
-        if (os.networkInterfaces().lo[i].family == 'IPv4') {
-            var host = os.networkInterfaces().lo[i].address;
-            if (host == '127.0.0.1') {
-                continue;
-            } else {
+var ifaces = os.networkInterfaces();
+for (var dev in ifaces) {
+    ifaces[dev].forEach(function(details) {
+        if (details.family == 'IPv4') {
+            var host = details.address.trim();
+            if (host != '127.0.0.1') {
                 IPv4 = host;
-                break;
             }
         }
-    }
-}
+    })
+};
 
 app.listen(app.get('port'), function() {
     console.log("Express server listening on %s:%s", IPv4, app.get('port'));
