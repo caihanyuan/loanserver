@@ -44,12 +44,19 @@ if (os.networkInterfaces().en0) {
     for (var i = 0; i < os.networkInterfaces().en0.length; i++) {
         if (os.networkInterfaces().en0[i].family == 'IPv4') {
             IPv4 = os.networkInterfaces().en0[i].address;
+            break;
         }
     }
 } else if (os.networkInterfaces().lo) {
     for (var i = 0; i < os.networkInterfaces().lo.length; i++) {
         if (os.networkInterfaces().lo[i].family == 'IPv4') {
-            IPv4 = os.networkInterfaces().lo[i].address;
+            var host = os.networkInterfaces().lo[i].address;
+            if (host == '127.0.0.1') {
+                continue;
+            } else {
+                IPv4 = host;
+                break;
+            }
         }
     }
 }
