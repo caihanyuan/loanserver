@@ -4,8 +4,10 @@ var path = require('path');
 var route = require('./route')
 var bodyParser = require('body-parser');
 var logger = require('morgan');
+var os = require('os');
 
 var app = express();
+var IPv4;
 
 app.set('port', config.port);
 app.use(logger('dev'));
@@ -38,6 +40,13 @@ if (process.env.NODE_ENV == "development") {
 
 route.setRequestUrl(app);
 
-app.listen(app.get('port'), function() {
-    console.log("Express server listening on port " + app.get('port'));
+
+for (var i = 0; i < os.networkInterfaces().en0.length; i++) {
+    if (os.networkInterfaces().en0[i].family == 'IPv4') {
+        IPv4 = os.networkInterfaces().en0[i].address;
+    }
+}
+
+var server = app.listen(app.get('port'), function() {
+    console.log("Express server listening on %s:%s", IPv4, app.get('port'));
 });
