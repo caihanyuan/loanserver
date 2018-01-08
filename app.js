@@ -40,13 +40,20 @@ if (process.env.NODE_ENV == "development") {
 
 route.setRequestUrl(app);
 
-
-for (var i = 0; i < os.networkInterfaces().en0.length; i++) {
-    if (os.networkInterfaces().en0[i].family == 'IPv4') {
-        IPv4 = os.networkInterfaces().en0[i].address;
+if (os.networkInterfaces().en0) {
+    for (var i = 0; i < os.networkInterfaces().en0.length; i++) {
+        if (os.networkInterfaces().en0[i].family == 'IPv4') {
+            IPv4 = os.networkInterfaces().en0[i].address;
+        }
+    }
+} else if (os.networkInterfaces().lo) {
+    for (var i = 0; i < os.networkInterfaces().lo.length; i++) {
+        if (os.networkInterfaces().lo[i].family == 'IPv4') {
+            IPv4 = os.networkInterfaces().lo[i].address;
+        }
     }
 }
 
-var server = app.listen(app.get('port'), function() {
+app.listen(app.get('port'), function() {
     console.log("Express server listening on %s:%s", IPv4, app.get('port'));
 });
